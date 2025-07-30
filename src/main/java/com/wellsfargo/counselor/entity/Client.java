@@ -1,19 +1,17 @@
 package com.wellsfargo.counselor.entity;
 
-import java.util.Collection;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
-public class Advisor {
-
+public class Client {
     @Id
     @GeneratedValue()
-    private long advisorId;
+    private long clientId;
 
     @Column(nullable = false)
     private String firstName;
@@ -31,24 +29,29 @@ public class Advisor {
     private String email;
 
     @Column(nullable = false)
-    @OneToMany()
-    private Collection<Client> listOfClients;
+    @OneToMany(mappedBy = "client.advisor")
+    private Advisor advisor;
+    
+    @Column(nullable = false)
+    @OneToOne
+    private Portfolio portfolio;
 
-    protected Advisor() {
+    protected Client() {
 
     }
 
-    public Advisor(String firstName, String lastName, String address, String phone, String email, Collection<Client> listOfClients) {
+    public Client(String firstName, String lastName, String address, String phone, String email, Advisor advisor, Portfolio portfolio) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
         this.email = email;
-        this.listOfClients = listOfClients;
+        this.advisor = advisor;
+        this.portfolio = portfolio;
     }
 
-    public Long getAdvisorId() {
-        return advisorId;
+    public Long getClientId() {
+        return clientId;
     }
 
     public String getFirstName() {
@@ -91,11 +94,20 @@ public class Advisor {
         this.email = email;
     }
 
-    public void setListOfClients(Collection<Client> listOfClients) {
-        this.listOfClients = listOfClients;
+    public void setAdvisor (Advisor advisor) {
+        this.advisor = advisor;
     }
 
-    public Collection<Client> getListOfClients() {
-        return listOfClients;
+    public Advisor getAdvisor() {
+        return advisor;
     }
+
+    public void setPortfolio (Portfolio portfolio) {
+        this.portfolio = portfolio;
+    }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
+    }
+
 }
