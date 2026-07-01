@@ -2,11 +2,13 @@ package com.wellsfargo.counselor.entity;
 
 import java.util.Collection;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
+@Entity
 public class Portfolio {
     @Id
     @GeneratedValue()
